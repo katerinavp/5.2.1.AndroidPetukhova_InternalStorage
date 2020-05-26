@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/editLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="Login"
+        app:layout_constraintBottom_toTopOf="@id/editReg"
+        app:layout_constraintEnd_toEndOf="@id/gRight"
+        app:layout_constraintStart_toStartOf="@id/gLeft" />
+
+    <EditText
+        android:id="@+id/editReg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        app:layout_constraintBottom_toTopOf="@id/gHorizontal"
+        app:layout_constraintEnd_toEndOf="@id/gRight"
+        app:layout_constraintStart_toStartOf="@id/gLeft" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:popupBackground="#03DA27"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="@id/gRight"
+        app:layout_constraintStart_toStartOf="@id/gLeft"
+        app:layout_constraintTop_toBottomOf="@id/gHorizontal" />
+
+    <Button
+        android:id="@+id/btnReg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:popupBackground="#03DA27"
+        android:text="Registration"
+        app:layout_constraintEnd_toEndOf="@id/gRight"
+        app:layout_constraintStart_toStartOf="@id/gLeft"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <Button
+        android:id="@+id/fab_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
