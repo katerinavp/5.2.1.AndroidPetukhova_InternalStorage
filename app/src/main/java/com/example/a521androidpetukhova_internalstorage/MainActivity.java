@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
+        checkData();
         setOnClickButton();
 
         findViewById(R.id.fab_email).setOnClickListener(new View.OnClickListener() {
@@ -73,7 +74,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void checkData() {
+        if (editLogin.getText().toString().length() == 0 && editReg.getText().toString().length() == 0) {
+            Toast.makeText(MainActivity.this, "Введите логин и пароль", Toast.LENGTH_LONG).show();
+        } else if (!(editLogin.getText().toString().length() == 0) && editReg.getText().toString().length() == 0) {
+            Toast.makeText(MainActivity.this, "Введите пароль", Toast.LENGTH_LONG).show();
+        } else if (editLogin.getText().toString().length() == 0 && !(editReg.getText().toString().length() == 0)) {
+            Toast.makeText(MainActivity.this, "Введите логин", Toast.LENGTH_LONG).show();
 
+        }
+    }
 
     private void setOnClickButton() {
         findViewById(R.id.btnReg).setOnClickListener(new View.OnClickListener() {
@@ -88,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 //                        IOException e) {
 //                    e.printStackTrace();
 //                }
-
+                checkData();
                 try (FileOutputStream fileOutputStream = openFileOutput("5.2.1.LoginAndPassword", MODE_PRIVATE)) {
                     OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
                     // Запишем текст в поток вывода данных, буферизуя символы так, чтобы обеспечить эффективную запись отдельных символов.
@@ -111,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
+                checkData();
                 try (FileInputStream fileInputStream = openFileInput("5.2.1.LoginAndPassword")) {// Получим входные байты из файла которых нужно прочесть.
                     // Декодируем байты в символы
                     InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -121,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (
                         IOException e) {
                     e.printStackTrace();
+
                 }
             }
             //собирать одну строку в несколько StringBuilder

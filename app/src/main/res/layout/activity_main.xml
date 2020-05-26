@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@id/gHorizontal"
         app:layout_constraintEnd_toEndOf="@id/gRight"
         app:layout_constraintStart_toStartOf="@id/gLeft" />
@@ -72,12 +73,14 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_gravity="bottom|start"
+        android:layout_margin="8dp"
+        app:srcCompat="@android:drawable/ic_dialog_email"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

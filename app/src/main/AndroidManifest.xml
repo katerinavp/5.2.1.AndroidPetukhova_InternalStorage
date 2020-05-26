@@ -16,6 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+    <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="@string/file_provider_authority"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <!-- ressource file to create -->
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths">
+        </meta-data>
+    </provider>
+    </application>
 </manifest>
