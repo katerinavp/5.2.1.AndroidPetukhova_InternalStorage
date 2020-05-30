@@ -3,34 +3,23 @@ package com.example.a521androidpetukhova_internalstorage;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.LongSummaryStatistics;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText editLogin;
-    EditText editReg;
-   Map<String, String> dataReg = new HashMap<>();
+    EditText editPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
-        checkData();
         setOnClickButton();
 
         findViewById(R.id.fab_email).setOnClickListener(new View.OnClickListener() {
@@ -57,32 +45,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void init() {
         editLogin = findViewById(R.id.editLogin);
-        editReg = findViewById(R.id.editReg);
-
-
-//        String filename = "notes.txt";
-//        File file = new File(getFilesDir(), filename);
-//        try (FileWriter fw = new FileWriter(file, true)) {
-//            fw.write("");
-//
-//
-//        } catch (
-//                IOException e) {
-//            e.printStackTrace();
-//        }
+        editPassword = findViewById(R.id.editPassword);
 
     }
 
 
     public void checkData() {
-        if (editLogin.getText().toString().length() == 0 && editReg.getText().toString().length() == 0) {
+
+        if (editLogin.getText().toString().length() == 0 && editPassword.getText().toString().length() == 0) {
             Toast.makeText(MainActivity.this, "Введите логин и пароль", Toast.LENGTH_LONG).show();
-        } else if (!(editLogin.getText().toString().length() == 0) && editReg.getText().toString().length() == 0) {
+        } else if (!(editLogin.getText().toString().length() == 0) && editPassword.getText().toString().length() == 0) {
             Toast.makeText(MainActivity.this, "Введите пароль", Toast.LENGTH_LONG).show();
-        } else if (editLogin.getText().toString().length() == 0 && !(editReg.getText().toString().length() == 0)) {
+        } else if (editLogin.getText().toString().length() == 0 && !(editPassword.getText().toString().length() == 0)) {
             Toast.makeText(MainActivity.this, "Введите логин", Toast.LENGTH_LONG).show();
 
         }
+
     }
 
     private void setOnClickButton() {
@@ -91,29 +69,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                File file = new File(getFilesDir(), "5.2.1.LoginAndPassword");
-//                try (FileWriter fw = new FileWriter(file, true)) {
-//                    fw.write("Login");
+                checkData();
+                if (!((editLogin.getText().toString().length()) == 0) && !(editPassword.getText().toString().length() == 0)) {
+//
+//                    1 способ для записи
+//                    File file = new File(getFilesDir(), "Login and  password");
+//                    try (FileWriter fw = new FileWriter(file, true)) {
+//                    fw.write("Login and  password");
 //                } catch (
 //                        IOException e) {
 //                    e.printStackTrace();
 //                }
-                checkData();
-                try (FileOutputStream fileOutputStream = openFileOutput("5.2.1.LoginAndPassword", MODE_PRIVATE)) {
-                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-                    // Запишем текст в поток вывода данных, буферизуя символы так, чтобы обеспечить эффективную запись отдельных символов.
-                    BufferedWriter bw = new BufferedWriter(outputStreamWriter);
-                    // Осуществим запись данных
+                    // 2 рекомендуемый метод для чтения из интернета данных
+                    try (FileOutputStream fileOutputStreamLogin = openFileOutput("5.2.1.Login", MODE_PRIVATE)) {
+                        fileOutputStreamLogin.write(editLogin.getText().toString().getBytes());
+                    } catch (
+                            IOException e) {
+                        e.printStackTrace();
+                    }
+                    try (FileOutputStream fileOutputStreamPassword = openFileOutput("5.2.1.Password", MODE_PRIVATE)) {
+                        fileOutputStreamPassword.write(editPassword.getText().toString().getBytes());
 
-                    bw.write(editLogin.getText().toString());
-                    bw.write(editReg.getText().toString());
+                    } catch (
+                            IOException e) {
+                        e.printStackTrace();
+                    }
+
                     Toast.makeText(MainActivity.this, "Логин и пароль сохранены", Toast.LENGTH_LONG).show();
-                } catch (
-                        IOException e) {
-                    e.printStackTrace();
                 }
             }
-
         });
 
 
@@ -122,21 +106,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkData();
-                try (FileInputStream fileInputStream = openFileInput("5.2.1.LoginAndPassword")) {// Получим входные байты из файла которых нужно прочесть.
-                    // Декодируем байты в символы
-                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-                    // Читаем данные из потока ввода, буферизуя символы так, чтобы обеспечить эффективную запись отдельных символов.
-                    BufferedReader reader = new BufferedReader(inputStreamReader);
-                    reader.readLine();// чтение строки из консоли
-                } catch (
-                        IOException e) {
-                    e.printStackTrace();
+                if (!((editLogin.getText().toString().length()) == 0) && !(editPassword.getText().toString().length() == 0)) {
+
+                    try (InputStreamReader inputStreamReaderLogin = new InputStreamReader((openFileInput("5.2.1.Login")))) {
+                        BufferedReader readerLogin = new BufferedReader(inputStreamReaderLogin);
+                        String lineLogin = readerLogin.readLine();
+                        if (lineLogin.equals(editLogin.getText().toString())) {
+                            Toast.makeText(MainActivity.this, "Логин введен корректно", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Логин введен НЕкорректно", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (
+                            IOException e) {
+                        e.printStackTrace();
+
+                    }
+
+                    try (InputStreamReader inputStreamReaderPassword = new InputStreamReader((openFileInput("5.2.1.Password")))) {
+                        BufferedReader readerPassword = new BufferedReader(inputStreamReaderPassword);
+                        String linePassword = readerPassword.readLine();
+
+                        if (linePassword.equals(editPassword.getText().toString())) {
+                            Toast.makeText(MainActivity.this, "Пароль введен корректно", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Пароль введен НЕорректно", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (
+                            IOException e) {
+                        e.printStackTrace();
+
+                    }
 
                 }
             }
-            //собирать одну строку в несколько StringBuilder
+
         });
     }
+
     private void sendFiles(@NonNull File root) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND_MULTIPLE);

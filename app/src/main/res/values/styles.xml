@@ -8,9 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
             </style>
 
-<!--    <style name="ButtonColor" parent="AppTheme">-->
-<!--        <item name="customButton">#03DA0E</item>-->
-
-<!--    </style>-->
+    <style name="MyTheme" parent="AppTheme">
+        <item name="colorPrimary">#E6C621</item>
+        <item name="colorPrimaryDark">#92B300</item>
+        <item name="colorAccent">#0352DA</item>
+        <item name="customButtonColorLogin">#03DA0E</item>
+        <item name="customButtonColorPassword">#B71C1C</item>
+    </style>
 
 </resources>
