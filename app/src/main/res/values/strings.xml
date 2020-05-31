@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">5.2.1.AndroidPetukhova_InternalStorage</string>
+    <string name="fill_in_Login_and_Password">Введите логин и пароль</string>
+    <string name="fill_in_Password">Введите пароль</string>
+    <string name="fill_in_Login">Введите логин</string>
+    <string name="Save_Login_and_Password">Логин и пароль сохранены</string>
+    <string name="Login_is_correct">Логин введен корректно</string>
+    <string name="Login_is_incorrect">Логин введен НЕкорректно</string>
+    <string name="Password_is_correct">Пароль введен корректно</string>
+    <string name="Password_is_incorrect">Пароль введен НЕорректно</string>
+    <string name="file_is_not_exist">Нет файлов!</string>
 </resources>

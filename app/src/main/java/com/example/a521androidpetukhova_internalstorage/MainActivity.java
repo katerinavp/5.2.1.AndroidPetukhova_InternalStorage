@@ -3,12 +3,14 @@ package com.example.a521androidpetukhova_internalstorage;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,8 +20,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editLogin;
-    EditText editPassword;
+    private EditText editLogin;
+    private EditText editPassword;
+    private static final String fileNameLogin = "5.2.1.Login";
+    private static final String fileNamePassword = "5.2.1.Password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
     public void checkData() {
 
         if (editLogin.getText().toString().length() == 0 && editPassword.getText().toString().length() == 0) {
-            Toast.makeText(MainActivity.this, "Введите логин и пароль", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, R.string.fill_in_Login_and_Password, Toast.LENGTH_LONG).show();
         } else if (!(editLogin.getText().toString().length() == 0) && editPassword.getText().toString().length() == 0) {
-            Toast.makeText(MainActivity.this, "Введите пароль", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, R.string.fill_in_Password, Toast.LENGTH_LONG).show();
         } else if (editLogin.getText().toString().length() == 0 && !(editPassword.getText().toString().length() == 0)) {
-            Toast.makeText(MainActivity.this, "Введите логин", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, R.string.fill_in_Login, Toast.LENGTH_LONG).show();
 
         }
 
@@ -81,13 +85,13 @@ public class MainActivity extends AppCompatActivity {
 //                    e.printStackTrace();
 //                }
                     // 2 рекомендуемый метод для чтения из интернета данных
-                    try (FileOutputStream fileOutputStreamLogin = openFileOutput("5.2.1.Login", MODE_PRIVATE)) {
+                    try (FileOutputStream fileOutputStreamLogin = openFileOutput(fileNameLogin, MODE_PRIVATE)) {
                         fileOutputStreamLogin.write(editLogin.getText().toString().getBytes());
                     } catch (
                             IOException e) {
                         e.printStackTrace();
                     }
-                    try (FileOutputStream fileOutputStreamPassword = openFileOutput("5.2.1.Password", MODE_PRIVATE)) {
+                    try (FileOutputStream fileOutputStreamPassword = openFileOutput(fileNamePassword, MODE_PRIVATE)) {
                         fileOutputStreamPassword.write(editPassword.getText().toString().getBytes());
 
                     } catch (
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Toast.makeText(MainActivity.this, "Логин и пароль сохранены", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, R.string.Save_Login_and_Password, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -108,13 +112,13 @@ public class MainActivity extends AppCompatActivity {
                 checkData();
                 if (!((editLogin.getText().toString().length()) == 0) && !(editPassword.getText().toString().length() == 0)) {
 
-                    try (InputStreamReader inputStreamReaderLogin = new InputStreamReader((openFileInput("5.2.1.Login")))) {
+                    try (InputStreamReader inputStreamReaderLogin = new InputStreamReader((openFileInput(fileNameLogin)))) {
                         BufferedReader readerLogin = new BufferedReader(inputStreamReaderLogin);
                         String lineLogin = readerLogin.readLine();
                         if (lineLogin.equals(editLogin.getText().toString())) {
-                            Toast.makeText(MainActivity.this, "Логин введен корректно", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, R.string.Login_is_correct, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(MainActivity.this, "Логин введен НЕкорректно", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, R.string.Login_is_incorrect, Toast.LENGTH_LONG).show();
                         }
                     } catch (
                             IOException e) {
@@ -122,21 +126,20 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
-                    try (InputStreamReader inputStreamReaderPassword = new InputStreamReader((openFileInput("5.2.1.Password")))) {
+                    try (InputStreamReader inputStreamReaderPassword = new InputStreamReader((openFileInput(fileNamePassword)))) {
                         BufferedReader readerPassword = new BufferedReader(inputStreamReaderPassword);
                         String linePassword = readerPassword.readLine();
 
                         if (linePassword.equals(editPassword.getText().toString())) {
-                            Toast.makeText(MainActivity.this, "Пароль введен корректно", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, R.string.Password_is_correct, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(MainActivity.this, "Пароль введен НЕорректно", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, R.string.Password_is_incorrect, Toast.LENGTH_LONG).show();
                         }
                     } catch (
                             IOException e) {
                         e.printStackTrace();
 
                     }
-
                 }
             }
 
@@ -151,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Uri> files = new ArrayList<>();
         File[] listFiles = root.listFiles();
         if (listFiles == null) {
-            Toast.makeText(this, "Нет файлов!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.file_is_not_exist, Toast.LENGTH_SHORT).show();
             return;
         }
         for (File file : listFiles) {
